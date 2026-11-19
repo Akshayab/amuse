@@ -29,7 +29,7 @@ It needs an OpenAI API key and PostgreSQL. No account, hosted service or other A
 Requirements: Docker Engine with the Compose plugin, Git, and an OpenAI API key.
 
 ```sh
-git clone https://github.com/replit/amuse
+git clone https://github.com/Akshayab/amuse
 cd amuse
 cp .env.example .env    # then set OPENAI_API_KEY
 docker compose up -d --build
