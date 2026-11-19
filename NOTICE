@@ -1,0 +1,23 @@
+Amuse
+Copyright 2026 The Amuse authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+It contains no copied third-party source code. Its dependencies are used as packages under their
+own licenses; THIRD_PARTY_LICENSES.md lists every package that ships in the server and the web app.
+
+The bundled Inter typeface (@fontsource-variable/inter) is licensed under the SIL Open Font
+License 1.1.
+
+The avatar and tip images in apps/web/public were made for this project: the avatars were
+generated with an AI image model and the tips are screenshots of Amuse itself. They are licensed
+under the same terms as the code.
+
+The workspace-file layout (SOUL.md, IDENTITY.md, USER.md, AGENTS.md, MEMORY.md, HEARTBEAT.md,
+BOOTSTRAP.md, memory/YYYY-MM-DD.md) follows OpenClaw (https://github.com/openclaw/openclaw, MIT
+License). No OpenClaw code or prompt text is included.
+
+Weather data comes from Open-Meteo (https://open-meteo.com/), licensed under CC BY 4.0.
+
+Amuse is an independent open-source project. It is not affiliated with, endorsed by or sponsored
+by OpenAI or any other company whose services it can connect to.

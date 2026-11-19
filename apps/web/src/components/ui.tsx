@@ -1,0 +1,155 @@
+import { createPortal } from "react-dom";
+import { forwardRef, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
+import { X } from "lucide-react";
+
+export function cx(...c: (string | false | null | undefined)[]) {
+  return c.filter(Boolean).join(" ");
+}
+
+type BtnProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "ghost" | "soft" | "danger" | "outline"; size?: "sm" | "md" | "lg" };
+export const Button = forwardRef<HTMLButtonElement, BtnProps>(function Button({ variant = "primary", size = "md", className, ...p }, ref) {
+  const v = {
+    primary: "bg-[var(--ink)] text-[var(--bg)] hover:opacity-90",
+    ghost: "hover:bg-[var(--hover)] text-[var(--ink)]",
+    soft: "bg-[var(--card)] hover:bg-[var(--hover)] text-[var(--ink)] border border-[var(--line)]",
+    outline: "border border-[var(--line)] hover:bg-[var(--hover)] text-[var(--ink)]",
+    danger: "bg-[#B4373C] text-white hover:opacity-90",
+  }[variant];
+  const s = { sm: "h-8 px-3 text-sm", md: "h-10 px-4 text-sm", lg: "h-12 px-6 text-base" }[size];
+  return (
+    <button
+      ref={ref}
+      className={cx(
+        "inline-flex items-center justify-center gap-2 rounded-full font-medium transition disabled:opacity-40 disabled:pointer-events-none",
+        v,
+        s,
+        className,
+      )}
+      {...p}
+    />
+  );
+});
+
+export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(function Input({ className, ...p }, ref) {
+  return (
+    <input
+      ref={ref}
+      className={cx("h-10 w-full rounded-xl border border-[var(--line)] bg-[var(--card)] px-3 text-sm outline-none focus:border-[var(--ink)]", className)}
+      {...p}
+    />
+  );
+});
+
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(function Textarea({ className, ...p }, ref) {
+  return (
+    <textarea
+      ref={ref}
+      className={cx("w-full rounded-xl border border-[var(--line)] bg-[var(--card)] p-3 text-sm outline-none focus:border-[var(--ink)]", className)}
+      {...p}
+    />
+  );
+});
+
+export function Card({ className, children, ...p }: { className?: string; children: ReactNode } & React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={cx("rounded-2xl border border-[var(--line)] bg-[var(--card)]", className)} {...p}>
+      {children}
+    </div>
+  );
+}
+
+export function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label?: string }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      aria-label={label}
+      onClick={() => onChange(!checked)}
+      className={cx("relative h-6 w-11 rounded-full transition", checked ? "bg-[var(--ink)]" : "bg-[var(--line)]")}
+    >
+      <span className={cx("absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition", checked ? "left-[22px]" : "left-0.5")} />
+    </button>
+  );
+}
+
+export function Segmented<T extends string>({ value, options, onChange }: { value: T; options: { value: T; label: string }[]; onChange: (v: T) => void }) {
+  return (
+    <div className="inline-flex rounded-full border border-[var(--line)] bg-[var(--bg)] p-0.5">
+      {options.map((o) => (
+        <button
+          key={o.value}
+          onClick={() => onChange(o.value)}
+          className={cx(
+            "rounded-full px-3 py-1 text-sm transition",
+            value === o.value ? "bg-[var(--ink)] text-[var(--bg)]" : "text-[var(--muted)] hover:text-[var(--ink)]",
+          )}
+        >
+          {o.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function Sheet({
+  open,
+  onClose,
+  title,
+  children,
+  side = "right",
+  wide = false,
+}: {
+  open: boolean;
+  onClose: () => void;
+  title?: ReactNode;
+  children: ReactNode;
+  side?: "right" | "bottom";
+  wide?: boolean;
+}) {
+  if (!open) return null;
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/25 backdrop-blur-[1px]" />
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={cx(
+          "relative ml-auto flex h-full flex-col bg-[var(--bg)] shadow-2xl",
+          side === "right" ? (wide ? "w-full max-w-4xl" : "w-full max-w-md") : "mt-auto h-[85vh] w-full rounded-t-3xl",
+        )}
+      >
+        <div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-3">
+          <div className="font-semibold">{title}</div>
+          <button onClick={onClose} className="rounded-full p-2 hover:bg-[var(--hover)]" aria-label="Close">
+            <X size={18} />
+          </button>
+        </div>
+        <div className="flex-1 overflow-y-auto">{children}</div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+export function Empty({ icon, title, body, action }: { icon: ReactNode; title: string; body?: string; action?: ReactNode }) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
+      <div className="text-4xl">{icon}</div>
+      <div className="font-semibold">{title}</div>
+      {body && <div className="max-w-sm text-sm text-[var(--muted)]">{body}</div>}
+      {action}
+    </div>
+  );
+}
+
+export function PageHeader({ title, subtitle, right }: { title: string; subtitle?: string; right?: ReactNode }) {
+  return (
+    <div className="flex items-end justify-between gap-4 px-5 pb-4 pt-6 md:px-8">
+      <div>
+        <h1 className="font-display text-2xl md:text-3xl">{title}</h1>
+        {subtitle && <p className="mt-1 text-sm text-[var(--muted)]">{subtitle}</p>}
+      </div>
+      {right}
+    </div>
+  );
+}

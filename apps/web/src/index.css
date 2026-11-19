@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --bg: #161616;
+  --side: #1b1b1b;
+  --panel: #1b1b1b;
+  --card: #262626;
+  --bubble: #262626;
+  --hover: #2c2c2c;
+  --line: #2f2f2f;
+  --ink: #ececec;
+  --muted: #9b9b9b;
+  --accent: #2d7ff9;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(45, 127, 249, 0.16);
+  --ok: #3ccf6e;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    "Inter Variable",
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.font-display {
+  font-family: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+@keyframes amuse-page {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.amuse-page {
+  animation: amuse-page 140ms ease-out;
+}
+/* Reserve scrollbar space so content width doesn't jump between short and long pages. */
+.amuse-page > * {
+  scrollbar-gutter: stable;
+}
+@media (prefers-reduced-motion: reduce) {
+  .amuse-page {
+    animation: none;
+  }
+}
+@keyframes amuse-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+.amuse-dot {
+  animation: amuse-dot 1.2s infinite ease-in-out;
+}
+
+.prose-amuse {
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.prose-amuse p {
+  margin: 0 0 0.6em;
+}
+.prose-amuse p:last-child {
+  margin-bottom: 0;
+}
+.prose-amuse ul,
+.prose-amuse ol {
+  margin: 0.3em 0 0.6em 1.2em;
+}
+.prose-amuse ul {
+  list-style: disc;
+}
+.prose-amuse ol {
+  list-style: decimal;
+}
+.prose-amuse li {
+  margin: 0.15em 0;
+}
+.prose-amuse a {
+  color: #7fb0ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-amuse strong {
+  font-weight: 600;
+}
+.prose-amuse h1,
+.prose-amuse h2,
+.prose-amuse h3 {
+  font-weight: 600;
+  margin: 0.8em 0 0.3em;
+}
+.prose-amuse h1 {
+  font-size: 1.25em;
+}
+.prose-amuse h2 {
+  font-size: 1.12em;
+}
+.prose-amuse h3 {
+  font-size: 1em;
+}
+.prose-amuse code {
+  background: var(--hover);
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  font-size: 0.88em;
+}
+.prose-amuse pre {
+  background: var(--hover);
+  padding: 0.75em;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+.prose-amuse pre code {
+  background: none;
+  padding: 0;
+}
+.prose-amuse table {
+  border-collapse: collapse;
+  margin: 0.5em 0;
+  font-size: 0.92em;
+  display: block;
+  overflow-x: auto;
+}
+.prose-amuse th,
+.prose-amuse td {
+  border: 1px solid var(--line);
+  padding: 0.35em 0.6em;
+  text-align: left;
+}
+.prose-amuse blockquote {
+  border-left: 3px solid var(--line);
+  padding-left: 0.8em;
+  color: var(--muted);
+}

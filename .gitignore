@@ -1,0 +1,29 @@
+# dependencies
+node_modules
+
+# build output
+dist
+*.tsbuildinfo
+.tsbuildinfo
+
+# local settings and data
+.env
+.env.*
+!.env.example
+.data/
+
+# test output
+e2e-report/
+e2e-gifs/
+test-results/
+
+# editors and OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# speech voices copied at runtime
+apps/server/voices/
